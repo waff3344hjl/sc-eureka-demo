@@ -1,0 +1,28 @@
+spring:
+  datasource: #数据库连接
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@120.76.99.78:1521:orcl
+    username: wl
+    password: wl
+  application: #服务名
+    name: service
+  zipkin: #sleuth+zipkin 实现链路追踪服务
+    base-url: http://localhost:9411
+    enabled: true #开启zipkin
+  sleuth:  #sleuth这个是配置提取率，可以配置也可以不配置/sleuth+zipkin 实现链路追踪服务/如果是0.1则表示只记录10%的追踪数据，如果要全部追踪，设置为1（实际场景不推荐，因为会造成不小的性能消耗）
+    probability: 1.0
+
+server:
+  port: 8762
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+  #暴露集群监控接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
